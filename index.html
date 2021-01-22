@@ -2,18 +2,31 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/script.js" charset="utf-8"></script>
     <title>Struttura dati</title>
   </head>
   <body>
 
-    <header>
-      <div id="print-card">
+    <div>
+      <label for="powerSelect">Filter by Power Value</label>
+      <select id="powerSelect">
+        <option value="">Choose Power Value (ALL)</option>
+      </select>
+    </div>
 
-      </div>
+    <div>
+      <label for="CardTypeSelect">Filter by Card Type</label>
+      <select id="CardTypeSelect">
+        <option value="">Choose Card Type (ALL)</option>
+      </select>
+    </div>
+
+    <header>
+      <div id="print-card"></div>
     </header>
 
 
-    <script src="js/script.js" charset="utf-8"></script>
 
   </body>
 </html>
