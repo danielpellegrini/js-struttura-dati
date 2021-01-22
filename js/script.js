@@ -65,7 +65,6 @@ const cards = [{
     }
 
   },
-
   {
 
   cardName: 'Sviluppatore Guerriero',
@@ -86,6 +85,87 @@ const cards = [{
 
     description: 'Lo sviluppatore guerriero spezza i byte in bit!',
     story: 'Lo sviluppatore guerriero è una forma di essere umano evoluto.',
+
+    score: {
+      power: 5,  // r
+      toughness: 3
+    }
+
+  },
+  {
+
+  cardName: 'Angelo dell\'Egida',
+
+    cost: {
+      genericCostNumber: 3,
+      costFields: [ // colors array con riferimento a fieldCodes
+        fieldCodes[2],
+        fieldCodes[3]
+      ],
+    },
+
+    picture: 'images/g.png',  // da inserire immagine
+    cardType: cardTypes[1],
+    cardObject: 'Angel',
+
+    editionType: editions['BL'],
+
+    description: 'Quando l\'Angelo dell\'Egida entra in campo, un altro permanente bersaglio è indistruttibile fintanto che controlli l\'Angelo dell\'Egida.',
+    story: 'Vola angelo, vola!',
+
+    score: {
+      power: 5,  // r
+      toughness: 3
+    }
+
+  },
+  {
+
+  cardName: 'Gargadonte Maggiore',
+
+    cost: {
+      genericCostNumber: 3,
+      costFields: [ // colors array con riferimento a fieldCodes
+        fieldCodes[2],
+        fieldCodes[3]
+      ],
+    },
+
+    picture: 'images/g.png',  // da inserire immagine
+    cardType: cardTypes[1],
+    cardObject: 'Bestia',
+
+    editionType: editions['BL'],
+
+    description: 'Sospendere 10',
+    story: 'Una volta il Gargadonte era minore. Adesso non più.',
+
+    score: {
+      power: 5,  // r
+      toughness: 3
+    }
+
+  },
+  {
+
+  cardName: 'Cronista Secolare',
+
+    cost: {
+      genericCostNumber: 3,
+      costFields: [ // colors array con riferimento a fieldCodes
+        fieldCodes[2],
+        fieldCodes[3]
+      ],
+    },
+
+    picture: 'images/g.png',  // da inserire immagine
+    cardType: cardTypes[1],
+    cardObject: 'Bestia',
+
+    editionType: editions['BL'],
+
+    description: 'La forza e la costituzione del Cronista Secolare sono pari al numero di carte nella tua mano.',
+    story: 'Così secolare da far impallidire Caressa',
 
     score: {
       power: 5,  // r
