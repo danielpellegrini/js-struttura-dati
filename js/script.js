@@ -180,10 +180,10 @@ $(document).ready(function() {
     cardName: 'Palude',
 
       cost: {
-        genericCostNumber: 3,
+        genericCostNumber: 0,
         costFields: [ // colors array con riferimento a fieldCodes
-          fieldCodes[2],
-          fieldCodes[3]
+          fieldCodes[0],
+          fieldCodes[0]
         ],
       },
 
@@ -197,14 +197,13 @@ $(document).ready(function() {
       story: 'Così secolare da far impallidire Caressa',
 
       score: {
-        power: 3, // r
-        toughness: 3
+        power: 0, // r
+        toughness: 0
       }
 
     },
   ];
 
-  console.log(cards);
 
   //---- WITH FUNCTION VERSION ----//
   // Visualizzare nell'html la lista di queste carte mostrando SOLO il nome della carta. Non grafichiamo nulla.
@@ -222,22 +221,22 @@ $(document).ready(function() {
   function render(DOMelementId, array) {
 
     const cardListHTMLelement = document.getElementById(DOMelementId);
+    // this will deny duplicating the whole cards list every time a power value will be selected
     cardListHTMLelement.innerHTML = '';
 
     array.forEach((item) => {
-
       printCard.innerHTML += `
       <div>
         <h1>${item.cardName}</h1>
         <h3>${item.cardType}</h3>
       </div>
       `
-
     });
 
   }
 
-  function renderSelect(DOMelementId, array) {
+  // adding power value to filter
+  function renderSelection(DOMelementId, array) {
     const select = document.getElementById(DOMelementId);
 
     array.forEach((item) => {
@@ -249,21 +248,55 @@ $(document).ready(function() {
 
   // initial render
   render('print-card', cards);
-  renderSelect('powerSelect', powerValues);
+  renderSelection('powerSelect', powerValues);
 
   // filling events
-  $('#powerSelect').change(function() {
-    if (isNaN($(this).val())) {
-      alert('Choose a numeric power')
-    }
-    console.log('>> Changing value "power"');
+  const powerSelection = $('#powerSelect');
+
+  powerSelection.change(function() {
+    // clearing printCard container
+    printCard.innerHTML = '';
+
     const selectValue = parseInt($(this).val());
     const filteredArray = filteredByPower(selectValue, cards);
 
-    render('print-card', filteredArray);
-  });
+    let newFilteredArray;
 
-  // Superpoweredbonus. E se volessi un'altra select e filtrare gli elementi attraverso la proprietà che abbiamo chiamato cardType?
+    if (($(this).val() !== 'all')) {
+      newFilteredArray = cards.filter((item) =>{
+        render('print-card', filteredArray);
+      });
+
+    } else {
+      newFilteredArray = cards;
+      console.log('all')
+    }
+
+    newFilteredArray.forEach((item) => {
+      printCard.innerHTML += `
+      <div>
+        <h1>${item.cardName}</h1>
+        <h3>${item.cardType}</h3>
+      </div>     `
+    });
+
+
+  });
+  powerSelection.change()
+
+
+  // Superpoweredbonus. E se volessi un'altra select e filtrare gli elementi
+  // attraverso la proprietà che abbiamo chiamato cardType?
+
+  function filteredByType(typeValue, array) {
+
+    return array.filter((item) => {
+
+      return item.cardTyope === typeValue;
+
+    });
+
+  }
 
 
 
@@ -281,6 +314,6 @@ $(document).ready(function() {
   //   `
   //
   // });
-  
+
 });
 // END DOCUMENT.READY
