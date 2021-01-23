@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-
   // Creiamo una select nell'html per filtrare le carte attraverso la proprietà power, per un valore che va da 1 a 5.
 
   const powerValues = [1, 2, 3, 4, 5]
@@ -204,10 +203,10 @@ $(document).ready(function() {
     },
   ];
 
-
   //---- WITH FUNCTION VERSION ----//
   // Visualizzare nell'html la lista di queste carte mostrando SOLO il nome della carta. Non grafichiamo nulla.
 
+  //  this function return a filtered array by power value
   function filteredByPower(powerValue, array) {
 
     return array.filter((item) => {
@@ -217,7 +216,7 @@ $(document).ready(function() {
     });
 
   }
-
+  //  this function return values on DOM
   function render(DOMelementId, array) {
 
     const cardListHTMLelement = document.getElementById(DOMelementId);
@@ -228,7 +227,7 @@ $(document).ready(function() {
       printCard.innerHTML += `
       <div>
         <h1>${item.cardName}</h1>
-        <h3>${item.cardType}</h3>
+        <h3>Type: ${item.cardType}</h3>
       </div>
       `
     });
@@ -245,34 +244,55 @@ $(document).ready(function() {
     });
 
   }
+  renderSelection('power-select', powerValues);
+  // end adding power value to filter
+
+  // adding type value to filter
+  function renderTypeSelection(DOMelementId, array) {
+    const select = document.getElementById(DOMelementId);
+
+    array.forEach((item) => {
+      select.innerHTML += `
+        <option value=${item}> ${item}</option>`;
+    });
+
+  }
+  renderTypeSelection('type-select', cardTypes);
+  // end adding type value to filter
 
   // initial render
   render('print-card', cards);
-  renderSelection('powerSelect', powerValues);
 
-  // filling events
-  const powerSelection = $('#powerSelect');
 
+  // filling events by power
+  const powerSelection = $('#power-select');
+
+  //change power event
   powerSelection.change(function() {
     // clearing printCard container
     printCard.innerHTML = '';
 
+    // clicked value
     const selectValue = parseInt($(this).val());
+
+    // creating a new array with 'filteredByPower' function. 'selectValue' is the function value and it'll work on 'cards' array
     const filteredArray = filteredByPower(selectValue, cards);
 
-    let newFilteredArray;
+    const allCards = $(this).val();
 
-    if (($(this).val() !== 'all')) {
-      newFilteredArray = cards.filter((item) =>{
+    let powerFilteredArray;
+
+    if (allCards !== 'all') {
+      powerFilteredArray = cards.filter((item) =>{
         render('print-card', filteredArray);
       });
 
     } else {
-      newFilteredArray = cards;
+      powerFilteredArray = cards;
       console.log('all')
     }
 
-    newFilteredArray.forEach((item) => {
+    powerFilteredArray.forEach((item) => {
       printCard.innerHTML += `
       <div>
         <h1>${item.cardName}</h1>
@@ -280,10 +300,10 @@ $(document).ready(function() {
       </div>     `
     });
 
-
   });
-  powerSelection.change()
 
+  powerSelection.change()
+  //end change power event
 
   // Superpoweredbonus. E se volessi un'altra select e filtrare gli elementi
   // attraverso la proprietà che abbiamo chiamato cardType?
@@ -292,19 +312,58 @@ $(document).ready(function() {
 
     return array.filter((item) => {
 
-      return item.cardTyope === typeValue;
+      return item.cardType === typeValue;
 
     });
 
   }
 
+  // filling events by type
+  const typeSelection = $('#type-select');
 
+  // change type event
+  typeSelection.change(function() {
+    // clearing printCard container
+    printCard.innerHTML = '';
+
+    // clicked value
+    const selectValue = $(this).val();
+
+    // creating a new array with 'filteredByType' function. 'selectValue' is the function value and it'll work on 'cards' array
+    const filteredArray = filteredByType(selectValue, cards);
+
+    const allCards = $(this).val();
+
+    let typeFilteredArray;
+
+    if (allCards !== 'all') {
+      typeFilteredArray = cards.filter((item) =>{
+        render('print-card', filteredArray);
+      });
+
+    } else {
+      typeFilteredArray = cards;
+      console.log('all')
+    }
+
+    typeFilteredArray.forEach((item) => {
+      printCard.innerHTML += `
+      <div>
+        <h1>${item.cardName}</h1>
+        <h3>${item.cardType}</h3>
+      </div>     `
+    });
+
+  });
+
+  typeSelection.change()
+  // end change type event
 
   //---- END WITH FUNCTIONS VERSION ----//
 
 
-  // WITHOUT FUNCTIONS VERSION
-  // Visualizzare nell'html la lista di queste carte mostrando SOLO il nome della carta. Non grafichiamo nulla.
+  // // WITHOUT FUNCTIONS VERSION
+  // // Visualizzare nell'html la lista di queste carte mostrando SOLO il nome della carta. Non grafichiamo nulla.
   // cards.forEach((item) => {
   //
   //   printCard.innerHTML += `
